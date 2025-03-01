@@ -1,0 +1,11 @@
+services:
+  linkding-bot:
+    build: .
+    restart: unless-stopped
+    environment:
+      - TELEGRAM_TOKEN = ${TELEGRAM_TOKEN}
+      - LINKDING_URL = ${LINKDING_URL}
+      - LINKDING_API_TOKEN = ${LINKDING_API_TOKEN}
+      - MY_CHAT_ID = ${MY_CHAT_ID}
+      - READECK_API_URL = ${READECK_API_URL}
+      - READECK_API_TOKEN = ${READECK_API_TOKEN}

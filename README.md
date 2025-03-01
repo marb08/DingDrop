@@ -3,12 +3,13 @@
 DingBot is a Telegram bot that allows you to quickly save bookmarks to your **Linkding** instance via Telegram. Simply send a link, and it will be added to your bookmark collection effortlessly.
 
 ## Features
-- 📌 Save bookmarks to Linkding via Telegram
+- 📌 Save bookmarks to Linkding or to Readeck via Telegram
 - 📝 Add tags to the saved bookmark
 - 🔒 Secure API token authentication
 
 ## Screenshot
-![Screenshot](.img/url-send.png?raw=true "Screenshot")
+![Screenshot](.img/service-selection.png?raw=true "Screenshot")
+![Screenshot](.img/bookmark-saved.png?raw=true "Screenshot")
 
 
 ## Local Installation
