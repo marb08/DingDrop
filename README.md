@@ -3,7 +3,7 @@
 DingBot is a Telegram bot that allows you to quickly save bookmarks to your **Linkding** instance via Telegram. Simply send a link, and it will be added to your bookmark collection effortlessly.
 
 ## Features
-- 📌 Save bookmarks to Linkding or to Readeck via Telegram
+- 📌 Save bookmarks to Linkding via Telegram
 - 📝 Add tags to the saved bookmark
 - 🔒 Secure API token authentication
 
@@ -11,6 +11,31 @@ DingBot is a Telegram bot that allows you to quickly save bookmarks to your **Li
 ![Screenshot](.img/service-selection.png?raw=true "Screenshot")
 ![Screenshot](.img/bookmark-saved.png?raw=true "Screenshot")
 
+## 🔹New Feature: Readeck Integration
+
+The bot now supports **Readeck** as a second service for saving bookmarks, alongside Linkding. When you send a link, the bot will prompt you to choose between **Linkding** or **Readeck**, and it will save the bookmark accordingly.
+
+### 🔧 How to Enable Readeck Support
+
+To enable Readeck, you need to rename specific files in your setup:
+
+1. Locate all files with the `-dual` suffix in the project directory.
+2. Remove the `-dual` suffix from their filenames.
+3. Use these renamed files to run the bot.
+
+This change ensures that the bot correctly recognizes and interacts with the Readeck APIs.
+
+### 🛠 Required Configuration
+
+Make sure to add the following environment variables in your `.env` file:
+
+```ini
+READECK_API_URL=<your-readeck-api-url>
+READECK_API_TOKEN=<your-readeck-api-token>
+```
+> **💡 Remember:** Once these variables are set and the files renamed, it is necessay to rebuild the Docker image with the new Dockerfile provided.
+
+Happy bookmarking! 🚀
 
 ## Local Installation
 
