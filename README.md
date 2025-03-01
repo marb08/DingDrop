@@ -7,6 +7,10 @@ DingBot is a Telegram bot that allows you to quickly save bookmarks to your **Li
 - 📝 Add tags to the saved bookmark
 - 🔒 Secure API token authentication
 
+## Screenshot
+![Screenshot](.img/url-send.png?raw=true "Screenshot")
+
+
 ## Local Installation
 
 ### Prerequisites
