@@ -76,4 +76,4 @@ Pull requests are welcome! Feel free to submit issues or feature requests to imp
 
 ## Acknowledgments
 - Thanks to the developers of [Linkding](https://github.com/sissbruecker/linkding) for creating an awesome bookmarking tool!
-- Special thanks to [mariomaz87](https://mariomaz87) for the inspiration from his project [Telegram-Wallabag-Bot](https://github.com/mariomaz87/Telegram-Wallabag-Bot).
+- Special thanks to [mariomaz87](https://github.com/mariomaz87) for the inspiration from his project [Telegram-Wallabag-Bot](https://github.com/mariomaz87/Telegram-Wallabag-Bot).
