@@ -26,6 +26,7 @@ TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
 MY_CHAT_ID = os.getenv("MY_CHAT_ID")
 LINKDING_URL = os.getenv("LINKDING_URL")
 LINKDING_API_TOKEN = os.getenv("LINKDING_API_TOKEN")
+TOPIC_ID = int(os.getenv("TOPIC_ID", "0"))  # If TOPIC_ID env variable is not present, then this value is "0"
 
 
 
@@ -43,13 +44,28 @@ for var_name, var_value in required_vars.items():
         sys.exit(1)
 
 def chat_id_restricted(func):
-    """Decorator to restrict bot access to specific chat ID"""
+    """Decorator to restrict bot access to specific chat ID and topic ID."""
     async def wrapped(update: Update, context: ContextTypes.DEFAULT_TYPE, *args, **kwargs):
-        if str(update.effective_chat.id) != MY_CHAT_ID and str(update.effective_user.id) != MY_CHAT_ID:
-            logger.warning(f"Unauthorized access attempt from {update.effective_user.id} in chat {update.effective_chat.id}")
+        allowed_chat_id = int(MY_CHAT_ID)
+        allowed_topic_id = int(TOPIC_ID)
+
+        chat_id = update.effective_chat.id
+        topic_id = update.message.message_thread_id if update.message else None
+
+        logger.info(f"Received message in chat ID: {chat_id}, topic ID: {topic_id}")
+
+        if chat_id != allowed_chat_id:
+            logger.warning(f"Unauthorized access attempt in chat {chat_id}")
             await update.message.reply_text("Sorry, I only respond to my owner.")
             return
+
+        if allowed_topic_id != 0 and topic_id != allowed_topic_id:
+            logger.warning(f"Message received in unauthorized topic {topic_id}")
+            await update.message.reply_text("❌ This topic is not authorized.")
+            return
+
         return await func(update, context, *args, **kwargs)
+
     return wrapped
 
 @chat_id_restricted
