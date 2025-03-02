@@ -48,23 +48,35 @@ def chat_id_restricted(func):
         allowed_topic_id = int(TOPIC_ID)
 
         chat_id = update.effective_chat.id
-        topic_id = update.message.message_thread_id if update.message else None
+        if update.message:
+            topic_id = update.message.message_thread_id
+        elif update.callback_query:
+            topic_id = update.callback_query.message.message_thread_id if update.callback_query.message else None
+        else:
+            topic_id = None
 
         logger.info(f"Received message in chat ID: {chat_id}, topic ID: {topic_id}")
 
         if chat_id != allowed_chat_id:
             logger.warning(f"Unauthorized access attempt in chat {chat_id}")
-            await update.message.reply_text("Sorry, I only respond to my owner.")
+            if update.message:
+                await update.message.reply_text("Sorry, I only respond to my owner.")
+            elif update.callback_query:
+                await update.callback_query.answer("Sorry, I only respond to my owner.", show_alert=True)
             return
 
         if allowed_topic_id != 0 and topic_id != allowed_topic_id:
             logger.warning(f"Message received in unauthorized topic {topic_id}")
-            await update.message.reply_text("❌ This topic is not authorized.")
+            if update.message:
+                await update.message.reply_text("❌ This topic is not authorized.")
+            elif update.callback_query:
+                await update.callback_query.answer("❌ This topic is not authorized.", show_alert=True)
             return
 
         return await func(update, context, *args, **kwargs)
 
     return wrapped
+
 
 @chat_id_restricted
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
